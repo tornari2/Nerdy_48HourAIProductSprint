@@ -1,0 +1,146 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Define Data Schema and Generate Synthetic Data",
+        "description": "Create the database schema and implement a synthetic data generator for tutors, students, and sessions.",
+        "details": "Design the database schema using Postgres with tables for tutors, students, sessions, transcripts, and metrics. Implement a TypeScript script to generate synthetic data for ~100 tutors, ~2-3k students, and ~3k sessions over a 7-day window, ensuring realistic distributions.",
+        "testStrategy": "Verify the schema by running migration scripts and ensure data integrity. Test the synthetic data generator by checking data distributions and ensuring it can be reset and rerun without issues.",
+        "priority": "medium",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Implement Analytics Pipeline",
+        "description": "Develop a batch analytics pipeline to compute tutor-level metrics and risk flags.",
+        "details": "Create a batch job to compute metrics such as reschedule rates, no-show rates, and first-session outcomes. Implement logic to derive first-session failure patterns and risk flags using simple rules.",
+        "testStrategy": "Run the analytics pipeline on synthetic data and verify the correctness of computed metrics and risk flags against expected values.",
+        "priority": "medium",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Develop AI Evaluation Service",
+        "description": "Implement the LLM-based evaluation service to score session transcripts.",
+        "details": "Create a service that uses OpenAI GPT-4o to evaluate session transcripts. Define a prompt template and implement a service layer to handle LLM calls, ensuring idempotency and logging.",
+        "testStrategy": "Test the evaluation service with sample transcripts to ensure it returns consistent and accurate JSON responses. Validate the service's ability to handle failures and retries.",
+        "priority": "medium",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Create Operator Dashboard",
+        "description": "Build a web dashboard for operations to view tutor metrics and risk flags.",
+        "details": "Develop a Next.js frontend with pages for tutor lists, detail views, and first-session patterns. Use TailwindCSS for styling and Recharts for data visualization.",
+        "testStrategy": "Perform UI testing to ensure all components render correctly and interact as expected. Validate data accuracy by comparing displayed metrics with backend calculations.",
+        "priority": "medium",
+        "dependencies": [
+          1,
+          2,
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Implement Backend API Endpoints",
+        "description": "Develop API endpoints to support frontend data requirements.",
+        "details": "Create Next.js API routes for endpoints such as `/api/tutors`, `/api/tutors/[id]`, and `/api/evaluate-session`. Ensure endpoints are optimized for performance and security.",
+        "testStrategy": "Use Postman or similar tools to test API endpoints for correct data retrieval and error handling. Verify performance under load using synthetic data.",
+        "priority": "medium",
+        "dependencies": [
+          1,
+          2,
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Integrate LLM Evaluation with Analytics",
+        "description": "Integrate AI evaluation results into the analytics pipeline to update tutor metrics.",
+        "details": "Modify the analytics pipeline to incorporate AI evaluation results, updating tutor metrics with AI quality scores and feedback summaries.",
+        "testStrategy": "Run integration tests to ensure AI evaluation results are correctly aggregated into tutor metrics. Validate data consistency across the pipeline.",
+        "priority": "medium",
+        "dependencies": [
+          2,
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Deploy MVP on Vercel",
+        "description": "Deploy the entire application stack on Vercel for the MVP demo.",
+        "details": "Configure Vercel for deployment of the Next.js frontend and backend. Set up environment variables and ensure the database connection is secure and performant.",
+        "testStrategy": "Perform end-to-end testing in the deployed environment to ensure all components function as expected. Validate deployment configurations and environment variable settings.",
+        "priority": "medium",
+        "dependencies": [
+          4,
+          5
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Implement Basic Authentication",
+        "description": "Set up basic authentication for the MVP using Vercel Password Protection.",
+        "details": "Configure Vercel Password Protection to secure the MVP demo. Ensure only authorized users can access the dashboard.",
+        "testStrategy": "Test authentication by attempting to access the dashboard with and without credentials. Verify that unauthorized access is blocked.",
+        "priority": "medium",
+        "dependencies": [
+          7
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Document System and Deployment",
+        "description": "Create comprehensive documentation for the system architecture, deployment, and AI components.",
+        "details": "Document the tech stack, architecture, AI prompting strategies, and deployment steps. Include a guide for running the system locally and in production.",
+        "testStrategy": "Review documentation for completeness and accuracy. Ensure all steps are reproducible by a new developer.",
+        "priority": "medium",
+        "dependencies": [
+          7
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Prepare Demo and Conduct Testing",
+        "description": "Prepare a demo video and conduct thorough testing of the MVP.",
+        "details": "Record a demo video showcasing key features and workflows. Conduct final testing to ensure all components work as expected and meet performance requirements.",
+        "testStrategy": "Perform a dry run of the demo to ensure smooth execution. Conduct comprehensive testing to catch any remaining issues before the demo.",
+        "priority": "medium",
+        "dependencies": [
+          7,
+          9
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-12-01T03:32:22.800Z",
+      "updated": "2025-12-01T03:32:22.800Z",
+      "description": "Tasks for master context"
+    }
+  }
+}
