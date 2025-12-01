@@ -129,11 +129,21 @@
 
 ## Component Relationships
 
-### Frontend Components
+### Frontend Components (To Be Built)
 - `/tutors` - Tutor list page with sorting/filtering
 - `/tutors/[id]` - Tutor detail page with metrics, sessions, transcripts
 - `/first-sessions` - First-session pattern analysis
 - Shared components: tables, charts, badges, cards
+
+### Project Structure (Current)
+```
+/
+├── memory-bank/          # Memory Bank documentation (✅ Complete)
+├── .taskmaster/          # Task Master configuration (✅ Complete)
+├── .cursor/rules/        # Cursor AI rules (✅ Complete)
+├── PRD.md                # Product requirements (✅ Complete)
+└── [app/]                # Next.js app (To be created)
+```
 
 ### Backend Services
 - `POST /api/seed-data` - Generate and insert synthetic data
