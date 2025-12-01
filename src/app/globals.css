@@ -1,0 +1,144 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* Nerdy Bluish-Purple Dark Theme - Default */
+:root {
+  --radius: 0.75rem;
+  /* Dark backgrounds with purple tint */
+  --background: oklch(0.12 0.02 280);
+  --foreground: oklch(0.95 0.01 280);
+  
+  /* Cards with glassmorphism effect */
+  --card: oklch(0.16 0.025 280);
+  --card-foreground: oklch(0.95 0.01 280);
+  
+  --popover: oklch(0.18 0.03 280);
+  --popover-foreground: oklch(0.95 0.01 280);
+  
+  /* Primary - Indigo/Violet gradient base */
+  --primary: oklch(0.65 0.2 270);
+  --primary-foreground: oklch(1 0 0);
+  
+  /* Secondary */
+  --secondary: oklch(0.22 0.03 280);
+  --secondary-foreground: oklch(0.9 0.01 280);
+  
+  /* Muted */
+  --muted: oklch(0.2 0.02 280);
+  --muted-foreground: oklch(0.65 0.02 280);
+  
+  /* Accent - Violet highlight */
+  --accent: oklch(0.75 0.18 300);
+  --accent-foreground: oklch(0.1 0.02 280);
+  
+  /* Destructive - Red */
+  --destructive: oklch(0.6 0.22 25);
+  
+  /* Borders */
+  --border: oklch(0.28 0.04 280);
+  --input: oklch(0.24 0.03 280);
+  --ring: oklch(0.65 0.2 270);
+  
+  /* Charts - Nerdy palette */
+  --chart-1: oklch(0.65 0.2 270);  /* Indigo */
+  --chart-2: oklch(0.7 0.18 300);  /* Violet */
+  --chart-3: oklch(0.75 0.15 200); /* Cyan */
+  --chart-4: oklch(0.7 0.2 150);   /* Emerald */
+  --chart-5: oklch(0.75 0.15 60);  /* Amber */
+  
+  /* Sidebar */
+  --sidebar: oklch(0.1 0.02 280);
+  --sidebar-foreground: oklch(0.9 0.01 280);
+  --sidebar-primary: oklch(0.65 0.2 270);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.2 0.03 280);
+  --sidebar-accent-foreground: oklch(0.9 0.01 280);
+  --sidebar-border: oklch(0.25 0.03 280);
+  --sidebar-ring: oklch(0.65 0.2 270);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image: 
+      radial-gradient(ellipse at top left, oklch(0.2 0.08 270 / 0.3), transparent 50%),
+      radial-gradient(ellipse at bottom right, oklch(0.15 0.06 300 / 0.3), transparent 50%);
+    min-height: 100vh;
+  }
+}
+
+/* Risk Badge Colors */
+.risk-high {
+  @apply bg-red-500/20 text-red-400 border-red-500/30;
+}
+.risk-medium {
+  @apply bg-yellow-500/20 text-yellow-400 border-yellow-500/30;
+}
+.risk-low {
+  @apply bg-emerald-500/20 text-emerald-400 border-emerald-500/30;
+}
+
+/* Glassmorphism effect for cards */
+.glass-card {
+  @apply bg-card/80 backdrop-blur-sm border border-border/50;
+}
+
+/* Gradient text for headings */
+.gradient-text {
+  background: linear-gradient(135deg, oklch(0.75 0.18 270), oklch(0.8 0.15 300));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Score indicators */
+.score-5 { @apply text-emerald-400; }
+.score-4 { @apply text-green-400; }
+.score-3 { @apply text-yellow-400; }
+.score-2 { @apply text-orange-400; }
+.score-1 { @apply text-red-400; }
