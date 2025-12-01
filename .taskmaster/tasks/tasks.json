@@ -10,7 +10,62 @@
         "priority": "medium",
         "dependencies": [],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Database Schema for Tutors, Students, and Sessions",
+            "description": "Create a detailed database schema using Postgres for the tutors, students, and sessions tables.",
+            "dependencies": [],
+            "details": "Define tables and relationships for tutors, students, and sessions. Ensure normalization and indexing for performance.",
+            "status": "pending",
+            "testStrategy": "Run migration scripts to verify schema creation and integrity."
+          },
+          {
+            "id": 2,
+            "title": "Design Database Schema for Transcripts and Metrics",
+            "description": "Extend the database schema to include tables for transcripts and metrics.",
+            "dependencies": [
+              1
+            ],
+            "details": "Define tables for storing session transcripts and metrics. Ensure relationships with existing tables are properly established.",
+            "status": "pending",
+            "testStrategy": "Verify schema by running migration scripts and checking table relationships."
+          },
+          {
+            "id": 3,
+            "title": "Implement TypeScript Script for Synthetic Data Generation",
+            "description": "Develop a TypeScript script to generate synthetic data for tutors, students, and sessions.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Create a script that generates realistic data distributions for ~100 tutors, ~2-3k students, and ~3k sessions over a 7-day window.",
+            "status": "pending",
+            "testStrategy": "Test data generation by checking distributions and ensuring script can be reset and rerun."
+          },
+          {
+            "id": 4,
+            "title": "Generate Synthetic Data for Transcripts and Metrics",
+            "description": "Extend the TypeScript script to generate synthetic data for transcripts and metrics.",
+            "dependencies": [
+              3
+            ],
+            "details": "Enhance the script to include data generation for session transcripts and associated metrics, ensuring realistic patterns.",
+            "status": "pending",
+            "testStrategy": "Verify data integrity and distribution by analyzing generated transcripts and metrics."
+          },
+          {
+            "id": 5,
+            "title": "Validate and Document Data Schema and Generation Process",
+            "description": "Document the database schema and synthetic data generation process, including testing results.",
+            "dependencies": [
+              4
+            ],
+            "details": "Create comprehensive documentation covering schema design, data generation logic, and testing outcomes.",
+            "status": "pending",
+            "testStrategy": "Review documentation for accuracy and completeness. Ensure reproducibility of steps by a new developer."
+          }
+        ]
       },
       {
         "id": 2,
@@ -23,7 +78,61 @@
           1
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Data Model for Tutor Metrics",
+            "description": "Create a data model to store tutor-level metrics and risk flags.",
+            "dependencies": [],
+            "details": "Define tables and fields for metrics such as reschedule rates, no-show rates, and first-session outcomes.",
+            "status": "pending",
+            "testStrategy": "Review data model with stakeholders to ensure it meets requirements."
+          },
+          {
+            "id": 2,
+            "title": "Develop Batch Job for Metrics Calculation",
+            "description": "Implement a batch job to compute tutor-level metrics.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use the data model to calculate metrics like reschedule rates and no-show rates.",
+            "status": "pending",
+            "testStrategy": "Run the batch job on test data and verify the accuracy of computed metrics."
+          },
+          {
+            "id": 3,
+            "title": "Implement Logic for Risk Flags",
+            "description": "Develop logic to derive risk flags based on tutor metrics.",
+            "dependencies": [
+              2
+            ],
+            "details": "Create rules to identify first-session failure patterns and assign risk flags.",
+            "status": "pending",
+            "testStrategy": "Test logic with various scenarios to ensure correct risk flag assignment."
+          },
+          {
+            "id": 4,
+            "title": "Integrate Metrics and Risk Flags into Database",
+            "description": "Store computed metrics and risk flags in the database.",
+            "dependencies": [
+              3
+            ],
+            "details": "Ensure the batch job writes results to the appropriate tables in the database.",
+            "status": "pending",
+            "testStrategy": "Verify data integrity and consistency in the database after integration."
+          },
+          {
+            "id": 5,
+            "title": "Validate Analytics Pipeline with Synthetic Data",
+            "description": "Test the entire analytics pipeline using synthetic data.",
+            "dependencies": [
+              4
+            ],
+            "details": "Run the pipeline end-to-end and compare results with expected outcomes.",
+            "status": "pending",
+            "testStrategy": "Use synthetic data to validate the correctness of metrics and risk flags."
+          }
+        ]
       },
       {
         "id": 3,
@@ -36,7 +145,62 @@
           1
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define Prompt Template for Evaluation",
+            "description": "Create a prompt template for the LLM to evaluate session transcripts.",
+            "dependencies": [],
+            "details": "Design a prompt template that guides the LLM to score session transcripts effectively. Ensure it covers key evaluation criteria.",
+            "status": "pending",
+            "testStrategy": "Test the prompt with sample transcripts to ensure clarity and effectiveness."
+          },
+          {
+            "id": 2,
+            "title": "Implement Service Layer for LLM Calls",
+            "description": "Develop a service layer to handle calls to the LLM for transcript evaluation.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create a robust service layer that manages LLM calls, ensuring idempotency and proper error handling.",
+            "status": "pending",
+            "testStrategy": "Simulate LLM calls and test for idempotency and error handling."
+          },
+          {
+            "id": 3,
+            "title": "Integrate Logging Mechanism",
+            "description": "Add logging to the service layer to track LLM call details and outcomes.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement logging to capture request and response details, including timestamps and error messages.",
+            "status": "pending",
+            "testStrategy": "Verify logs capture all necessary details during service operation."
+          },
+          {
+            "id": 4,
+            "title": "Ensure Idempotency in Service Layer",
+            "description": "Implement mechanisms to ensure idempotency in LLM calls.",
+            "dependencies": [
+              2
+            ],
+            "details": "Use unique identifiers and caching strategies to prevent duplicate processing of the same transcript.",
+            "status": "pending",
+            "testStrategy": "Test with repeated requests to ensure no duplicate processing occurs."
+          },
+          {
+            "id": 5,
+            "title": "Validate Evaluation Service with Sample Transcripts",
+            "description": "Test the evaluation service using sample transcripts to ensure accuracy and consistency.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Run the service with various sample transcripts and verify the consistency and accuracy of the JSON responses.",
+            "status": "pending",
+            "testStrategy": "Compare service outputs against expected results to validate accuracy."
+          }
+        ]
       },
       {
         "id": 4,
@@ -51,7 +215,62 @@
           3
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Set Up Next.js Project for Dashboard",
+            "description": "Initialize a Next.js project for the operator dashboard.",
+            "dependencies": [],
+            "details": "Create a new Next.js project and configure it with necessary dependencies like TailwindCSS and Recharts.",
+            "status": "pending",
+            "testStrategy": "Ensure the project builds and runs without errors."
+          },
+          {
+            "id": 2,
+            "title": "Develop Tutor List Page",
+            "description": "Create a page to display a list of tutors with key metrics.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement a page in Next.js to list tutors, using TailwindCSS for styling and Recharts for visualizing metrics.",
+            "status": "pending",
+            "testStrategy": "Verify the page displays tutor data correctly and is responsive."
+          },
+          {
+            "id": 3,
+            "title": "Implement Tutor Detail View",
+            "description": "Develop a detailed view for individual tutor metrics and risk flags.",
+            "dependencies": [
+              2
+            ],
+            "details": "Create a detailed view page for tutors, showing metrics and risk flags, styled with TailwindCSS.",
+            "status": "pending",
+            "testStrategy": "Check that all tutor details are displayed accurately and the page is navigable."
+          },
+          {
+            "id": 4,
+            "title": "Create First-Session Patterns Page",
+            "description": "Build a page to visualize first-session patterns for tutors.",
+            "dependencies": [
+              2
+            ],
+            "details": "Use Recharts to visualize first-session patterns on a dedicated page, ensuring data is presented clearly.",
+            "status": "pending",
+            "testStrategy": "Test the page for correct data visualization and interaction."
+          },
+          {
+            "id": 5,
+            "title": "Integrate Data with Backend API",
+            "description": "Connect the dashboard frontend with backend API endpoints.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Fetch data from backend API endpoints to populate the dashboard pages with real-time metrics.",
+            "status": "pending",
+            "testStrategy": "Perform end-to-end testing to ensure data is fetched and displayed correctly."
+          }
+        ]
       },
       {
         "id": 5,
@@ -66,7 +285,63 @@
           3
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create API Route for '/api/tutors'",
+            "description": "Develop the API endpoint to retrieve a list of tutors.",
+            "dependencies": [],
+            "details": "Implement a GET method in Next.js to fetch tutor data from the database.",
+            "status": "pending",
+            "testStrategy": "Use Postman to verify data retrieval and response format."
+          },
+          {
+            "id": 2,
+            "title": "Create API Route for '/api/tutors/[id]'",
+            "description": "Develop the API endpoint to retrieve details of a specific tutor by ID.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement a dynamic route in Next.js to fetch tutor details based on the provided ID.",
+            "status": "pending",
+            "testStrategy": "Test with Postman using various tutor IDs to ensure correct data is returned."
+          },
+          {
+            "id": 3,
+            "title": "Create API Route for '/api/evaluate-session'",
+            "description": "Develop the API endpoint to evaluate a session.",
+            "dependencies": [],
+            "details": "Implement a POST method in Next.js to handle session evaluation requests and return results.",
+            "status": "pending",
+            "testStrategy": "Send sample session data via Postman to test evaluation logic and response."
+          },
+          {
+            "id": 4,
+            "title": "Optimize API Endpoints for Performance",
+            "description": "Enhance the performance of all API endpoints.",
+            "dependencies": [
+              1,
+              2,
+              3
+            ],
+            "details": "Implement caching and optimize database queries to reduce response times.",
+            "status": "pending",
+            "testStrategy": "Use load testing tools to measure response times and optimize accordingly."
+          },
+          {
+            "id": 5,
+            "title": "Ensure Security of API Endpoints",
+            "description": "Implement security measures for all API endpoints.",
+            "dependencies": [
+              1,
+              2,
+              3
+            ],
+            "details": "Add authentication and input validation to protect endpoints from unauthorized access and injection attacks.",
+            "status": "pending",
+            "testStrategy": "Conduct security testing to verify protection against common vulnerabilities."
+          }
+        ]
       },
       {
         "id": 6,
@@ -80,7 +355,63 @@
           3
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Analyze Current Analytics Pipeline",
+            "description": "Review the existing analytics pipeline to identify integration points for AI evaluation results.",
+            "dependencies": [
+              2
+            ],
+            "details": "Conduct a detailed analysis of the current analytics pipeline to determine where AI evaluation results can be integrated. Document potential integration points and any necessary modifications.",
+            "status": "pending",
+            "testStrategy": null
+          },
+          {
+            "id": 2,
+            "title": "Design Data Flow for AI Evaluation Results",
+            "description": "Create a data flow design to incorporate AI evaluation results into the analytics pipeline.",
+            "dependencies": [
+              1
+            ],
+            "details": "Design a data flow diagram that outlines how AI evaluation results will be processed and integrated into the existing analytics pipeline. Ensure the design supports updating tutor metrics with AI quality scores and feedback summaries.",
+            "status": "pending",
+            "testStrategy": null
+          },
+          {
+            "id": 3,
+            "title": "Modify Analytics Pipeline for AI Integration",
+            "description": "Update the analytics pipeline to accept and process AI evaluation results.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement changes to the analytics pipeline to incorporate AI evaluation results. Ensure the pipeline updates tutor metrics with AI quality scores and feedback summaries as per the new design.",
+            "status": "pending",
+            "testStrategy": "Run integration tests to verify that AI evaluation results are correctly processed and integrated into tutor metrics."
+          },
+          {
+            "id": 4,
+            "title": "Develop Data Validation Mechanism",
+            "description": "Create a mechanism to validate the consistency and accuracy of integrated AI evaluation data.",
+            "dependencies": [
+              3
+            ],
+            "details": "Implement a validation mechanism to ensure that AI evaluation results are accurately and consistently integrated into the analytics pipeline. This includes checks for data integrity and correctness of tutor metrics updates.",
+            "status": "pending",
+            "testStrategy": "Perform data validation tests to ensure consistency and accuracy of the integrated AI evaluation data."
+          },
+          {
+            "id": 5,
+            "title": "Conduct End-to-End Testing",
+            "description": "Perform comprehensive testing of the modified analytics pipeline with integrated AI evaluation results.",
+            "dependencies": [
+              4
+            ],
+            "details": "Conduct end-to-end testing of the analytics pipeline to ensure that AI evaluation results are correctly integrated and tutor metrics are updated accurately. Validate data consistency across the entire pipeline.",
+            "status": "pending",
+            "testStrategy": "Execute end-to-end tests to verify the integration and accuracy of AI evaluation results within the analytics pipeline."
+          }
+        ]
       },
       {
         "id": 7,
@@ -94,7 +425,61 @@
           5
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Configure Vercel Project for Deployment",
+            "description": "Set up a new project on Vercel for the MVP deployment.",
+            "dependencies": [],
+            "details": "Create a new project on Vercel and link it to the GitHub repository containing the Next.js application.",
+            "status": "pending",
+            "testStrategy": "Verify project setup by checking the Vercel dashboard for correct repository linkage."
+          },
+          {
+            "id": 2,
+            "title": "Set Up Environment Variables on Vercel",
+            "description": "Configure necessary environment variables for the application on Vercel.",
+            "dependencies": [
+              1
+            ],
+            "details": "Add all required environment variables in the Vercel dashboard to ensure the application runs correctly.",
+            "status": "pending",
+            "testStrategy": "Check that the application builds successfully with the configured environment variables."
+          },
+          {
+            "id": 3,
+            "title": "Deploy Next.js Frontend and Backend",
+            "description": "Deploy both the frontend and backend of the application on Vercel.",
+            "dependencies": [
+              2
+            ],
+            "details": "Use Vercel's deployment process to deploy the Next.js application, ensuring both frontend and backend are operational.",
+            "status": "pending",
+            "testStrategy": "Perform a smoke test to confirm that both frontend and backend endpoints are accessible."
+          },
+          {
+            "id": 4,
+            "title": "Ensure Secure Database Connection",
+            "description": "Verify and secure the database connection for the deployed application.",
+            "dependencies": [
+              3
+            ],
+            "details": "Check database connection settings and ensure they are secure and performant for the Vercel deployment.",
+            "status": "pending",
+            "testStrategy": "Test database operations from the deployed application to ensure secure and successful connections."
+          },
+          {
+            "id": 5,
+            "title": "Conduct End-to-End Testing in Deployed Environment",
+            "description": "Perform comprehensive testing of the deployed application to ensure functionality.",
+            "dependencies": [
+              4
+            ],
+            "details": "Run end-to-end tests to validate that all components of the application work as expected in the deployed environment.",
+            "status": "pending",
+            "testStrategy": "Execute automated and manual tests to verify application functionality and performance."
+          }
+        ]
       },
       {
         "id": 8,
@@ -107,7 +492,62 @@
           7
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Research Vercel Password Protection",
+            "description": "Investigate how Vercel Password Protection works and its integration process.",
+            "dependencies": [],
+            "details": "Gather documentation and examples on Vercel Password Protection to understand setup requirements.",
+            "status": "pending",
+            "testStrategy": null
+          },
+          {
+            "id": 2,
+            "title": "Configure Vercel Password Protection",
+            "description": "Set up Vercel Password Protection for the MVP demo.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement the configuration settings in the Vercel dashboard to enable password protection.",
+            "status": "pending",
+            "testStrategy": "Verify configuration by accessing the demo with and without credentials."
+          },
+          {
+            "id": 3,
+            "title": "Integrate Authentication with Dashboard",
+            "description": "Ensure the dashboard is secured with the configured authentication.",
+            "dependencies": [
+              2
+            ],
+            "details": "Modify the dashboard code to check for authentication before granting access.",
+            "status": "pending",
+            "testStrategy": "Attempt to access the dashboard without credentials to ensure access is blocked."
+          },
+          {
+            "id": 4,
+            "title": "Create Authorized Users List",
+            "description": "Define and set up a list of authorized users who can access the dashboard.",
+            "dependencies": [
+              1
+            ],
+            "details": "Compile a list of users and configure access permissions in Vercel.",
+            "status": "pending",
+            "testStrategy": "Test access with authorized and unauthorized users to ensure correct permissions."
+          },
+          {
+            "id": 5,
+            "title": "Conduct Security Testing",
+            "description": "Perform security testing to ensure the authentication setup is robust.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Use tools to attempt unauthorized access and verify that security measures are effective.",
+            "status": "pending",
+            "testStrategy": "Conduct penetration testing and review logs for unauthorized access attempts."
+          }
+        ]
       },
       {
         "id": 9,
@@ -120,7 +560,58 @@
           7
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Document Tech Stack and Architecture",
+            "description": "Create detailed documentation of the tech stack and system architecture.",
+            "dependencies": [],
+            "details": "Include information on programming languages, frameworks, libraries, and overall system design.",
+            "status": "pending",
+            "testStrategy": "Review for completeness and technical accuracy."
+          },
+          {
+            "id": 2,
+            "title": "Document AI Prompting Strategies",
+            "description": "Detail the AI prompting strategies used in the system.",
+            "dependencies": [],
+            "details": "Explain the AI models used, prompting techniques, and any customizations made.",
+            "status": "pending",
+            "testStrategy": "Ensure strategies are clearly explained and reproducible."
+          },
+          {
+            "id": 3,
+            "title": "Document Deployment Steps",
+            "description": "Outline the steps required to deploy the system.",
+            "dependencies": [],
+            "details": "Include instructions for setting up environments, deploying to production, and managing updates.",
+            "status": "pending",
+            "testStrategy": "Verify steps by deploying in a test environment."
+          },
+          {
+            "id": 4,
+            "title": "Create Local and Production Run Guide",
+            "description": "Develop a guide for running the system locally and in production.",
+            "dependencies": [],
+            "details": "Provide detailed instructions for setting up local environments and transitioning to production.",
+            "status": "pending",
+            "testStrategy": "Test guide by setting up both environments from scratch."
+          },
+          {
+            "id": 5,
+            "title": "Review and Finalize Documentation",
+            "description": "Conduct a thorough review of all documentation for completeness and accuracy.",
+            "dependencies": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "details": "Ensure all sections are complete, accurate, and understandable by new developers.",
+            "status": "pending",
+            "testStrategy": "Have a new developer follow the documentation to set up and deploy the system."
+          }
+        ]
       },
       {
         "id": 10,
@@ -134,7 +625,59 @@
           9
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Script Demo Video Outline",
+            "description": "Create a detailed outline for the demo video showcasing key features.",
+            "dependencies": [],
+            "details": "Identify key features and workflows to highlight in the demo video. Draft a script to ensure all important aspects are covered.",
+            "status": "pending",
+            "testStrategy": "Review the script with the team to ensure all features are included."
+          },
+          {
+            "id": 2,
+            "title": "Record Demo Video",
+            "description": "Record the demo video based on the prepared script.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use screen recording software to capture the demo. Ensure high-quality audio and video.",
+            "status": "pending",
+            "testStrategy": "Perform a dry run to ensure smooth execution and clarity."
+          },
+          {
+            "id": 3,
+            "title": "Edit and Finalize Demo Video",
+            "description": "Edit the recorded video to enhance clarity and engagement.",
+            "dependencies": [
+              2
+            ],
+            "details": "Use video editing software to cut unnecessary parts, add annotations, and ensure smooth transitions.",
+            "status": "pending",
+            "testStrategy": "Review the final video with the team for feedback and approval."
+          },
+          {
+            "id": 4,
+            "title": "Conduct Functional Testing",
+            "description": "Perform functional testing on all components of the MVP.",
+            "dependencies": [],
+            "details": "Test each feature of the MVP to ensure it works as expected. Document any issues found.",
+            "status": "pending",
+            "testStrategy": "Use a checklist to verify each feature against requirements."
+          },
+          {
+            "id": 5,
+            "title": "Conduct Performance Testing",
+            "description": "Evaluate the performance of the MVP under expected load conditions.",
+            "dependencies": [
+              4
+            ],
+            "details": "Simulate user load and monitor system performance. Identify any bottlenecks or performance issues.",
+            "status": "pending",
+            "testStrategy": "Use tools like JMeter to simulate load and analyze system performance metrics."
+          }
+        ]
       }
     ],
     "metadata": {
