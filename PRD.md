@@ -89,7 +89,7 @@ We need a system that can **process ~3,000 sessions per day**, evaluate them wit
 ### 3.2 Success Metrics (Product-Level)
 
 **Short-term (demo / MVP):**
-ee
+
 - **Demo quality:** Can we show a live flow where:
 
   1. A new session (synthetic) is "completed".
@@ -896,43 +896,33 @@ Future enhancements can:
 
 ### 10.1 MVP Deploy
 
-**Frontend:**
+**Frontend + Backend (Vercel-only):**
 
-- Deploy Next.js app to **Vercel**:
+- Deploy Next.js 14 app to **Vercel**:
+  - Frontend: React pages with TailwindCSS + shadcn/ui
+  - Backend: Next.js API Routes + Server Actions
 
-  - Configure necessary environment variables:
+- Configure environment variables in Vercel:
+  - `DATABASE_URL` – Neon Postgres connection string (pooled)
+  - `OPENAI_API_KEY` – OpenAI API key for GPT-4o
+  - `NODE_ENV` – production
 
-    - Database URL.
+- Database:
+  - **Neon** Serverless Postgres
+  - Enable connection pooling for serverless compatibility
+  - Run migrations via Drizzle Kit
 
-    - LLM API keys.
-
-    - Any feature flags.
-
-**Backend (Option 1 – Vercel-only for MVP):**
-
-- Implement backend logic as Next.js API routes or Vercel functions.
-
-- Use a managed Postgres instance (Neon/Supabase or AWS RDS).
-
-- Ensure DB credentials and LLM keys are securely managed in Vercel environment variables.
-
-**Alternative Backend (Option 2 – AWS):**
-
-- Deploy FastAPI/NestJS service to AWS (ECS or Lambda).
-
-- Configure CORS to allow requests from the Vercel frontend.
-
-- Use AWS RDS Postgres for persistence.
+- Authentication:
+  - Vercel Password Protection for MVP demo access
 
 ### 10.2 CI/CD
 
-- Host code in a GitHub repo.
+- Code hosted at: [github.com/tornari2/Nerdy_48HourAIProductSprint](https://github.com/tornari2/Nerdy_48HourAIProductSprint)
 
 - Configure:
-
-  - Vercel integration to auto-deploy from the `main` branch.
-
-  - Optional GitHub Actions workflow to deploy the backend to AWS on merge or tag.
+  - Vercel GitHub integration to auto-deploy from the `main` branch
+  - Preview deployments on pull requests
+  - Environment variables secured in Vercel dashboard
 
 ---
 
